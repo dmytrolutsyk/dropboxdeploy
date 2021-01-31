@@ -79,16 +79,14 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
 
 
 def get_app(release_dir):
-    output_path = os.path.join(release_dir, 'output.json')
+    output_path = os.path.join(release_dir, 'output-metadata.json')
 
     with(open(output_path)) as app_output:
         json_data = json.load(app_output)
 
     apk_details_key = ''
-    if 'apkInfo' in json_data[0]:
-        apk_details_key = 'apkInfo'
-    elif 'apkData' in json_data[0]:
-        apk_details_key = 'apkData'
+    if 'elements' in json_data[0]:
+        apk_details_key = 'elements'
     else:
         print("Failed: parsing json in output file")
         return None, None
