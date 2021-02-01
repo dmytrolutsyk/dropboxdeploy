@@ -5,6 +5,7 @@ import argparse
 import requests
 import json
 import re
+import dropbox
 
 DROPBOX_ERROR_CODE = 1
 ZAPIER_ERROR_CODE = 2
@@ -41,6 +42,8 @@ ZAPIER_SEND_DATA = {
 
 
 def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder):
+    
+    
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
     DROPBOX_UPLOAD_ARGS['path'] = dropbox_path
     DROPBOX_SHARE_DATA['path'] = dropbox_path
@@ -48,10 +51,10 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
 
     # Try to delete the file before upload
     # It's possible to overwrite but this way is cleaner
-    headers = {'Authorization': 'Bearer ' + dropbox_token,
+    '''headers = {'Authorization': 'Bearer ' + dropbox_token,
             'Content-Type': 'application/json'}
 
-    r = requests.post(DROPBOX_DELETE_URL, data=json.dumps(DROPBOX_DELETE_DATA), headers=headers)
+    'r = requests.post(DROPBOX_DELETE_URL, data=json.dumps(DROPBOX_DELETE_DATA), headers=headers)
     print("delete request", r)
     headers = {'Authorization': 'Bearer ' + dropbox_token,
                'Dropbox-API-Arg': json.dumps(DROPBOX_UPLOAD_ARGS),
@@ -64,19 +67,25 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     if r.status_code != requests.codes.ok:
         print("Failed: upload file to Dropbox: {errcode}".format(errcode=r.status_code))
         return None
-
+    
+    
     headers = {'Authorization': 'Bearer ' + dropbox_token,
                'Content-Type': 'application/json'}
 
     # Share and return downloadable url
     r = requests.post(DROPBOX_SHARE_URL, data=json.dumps(DROPBOX_SHARE_DATA), headers=headers)
-
+    
     if r.status_code != requests.codes.ok:
         print("Failed: get share link from Dropbox {errcode}".format(errcode=r.status_code))
         return None
-
-    # Replace the '0' at the end of the url with '1' for direct download
-    return re.sub('dl=.*', 'raw=1', r.json()['url'])
+    '''
+    print("oN est la")
+    file_from = 'index.jpeg'  #local file path
+    file_to = '/Applications/app.apk'      # dropbox path
+    dbx = dropbox.Dropbox(dropbox_token)
+    data=open(source_file, 'rb')
+    dbx.files_upload(data.read(), file_to)
+    print("oN est plus la")
 
 
 def get_app(release_dir):
@@ -124,6 +133,6 @@ if __name__ == '__main__':
     target_app_file = get_target_file_name(options.app_name, app_version)
 
     # Upload app file and get shared url
-    file_url = dropbox_upload(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
-    if file_url == None:
-        exit(DROPBOX_ERROR_CODE)
+    dropbox_upload(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
+    #if file_url == None:
+    #    exit(DROPBOX_ERROR_CODE)
