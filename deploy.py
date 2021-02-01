@@ -79,13 +79,10 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
         print("Failed: get share link from Dropbox {errcode}".format(errcode=r.status_code))
         return None
     '''
-    print("oN est la")
-    file_from = 'index.jpeg'  #local file path
-    file_to = '/Applications/Ci-Cd ESGI/app.apk'      # dropbox path
+    
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
-    dbx.files_upload(data.read(), file_to)
-    print("oN est plus la")
+    dbx.files_upload(data.read(), source_file)
 
 
 def get_app(release_dir):
@@ -134,5 +131,3 @@ if __name__ == '__main__':
 
     # Upload app file and get shared url
     dropbox_upload(target_app_file, app_file, options.dropbox_token, options.dropbox_folder)
-    #if file_url == None:
-    #    exit(DROPBOX_ERROR_CODE)
