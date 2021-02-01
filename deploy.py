@@ -34,21 +34,8 @@ DROPBOX_DELETE_DATA = {
 }
 DROPBOX_DELETE_URL = 'https://api.dropboxapi.com/2/files/delete_v2'
 
-ZAPIER_SEND_DATA = {
-    'to': None,
-    'subject': None,
-    'body': None
-}
-
-
 def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder):
-    
-    
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
-    DROPBOX_UPLOAD_ARGS['path'] = dropbox_path
-    DROPBOX_SHARE_DATA['path'] = dropbox_path
-    DROPBOX_DELETE_DATA['path'] = dropbox_path
-    
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
     dbx.files_upload(data.read(), '/FindAndTrade.apk')
