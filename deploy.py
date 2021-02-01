@@ -51,7 +51,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
-    dbx.files_upload(data.read(), '/Find-and-trade.apk')
+    dbx.files_upload(data.read(), '/FindAndTrade.apk')
 
 
 def get_app(release_dir):
