@@ -47,42 +47,11 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
     DROPBOX_UPLOAD_ARGS['path'] = dropbox_path
     DROPBOX_SHARE_DATA['path'] = dropbox_path
-    DROPBOX_DELETE_DATA['path'] = dropbox_path
-
-    # Try to delete the file before upload
-    # It's possible to overwrite but this way is cleaner
-    '''headers = {'Authorization': 'Bearer ' + dropbox_token,
-            'Content-Type': 'application/json'}
-
-    'r = requests.post(DROPBOX_DELETE_URL, data=json.dumps(DROPBOX_DELETE_DATA), headers=headers)
-    print("delete request", r)
-    headers = {'Authorization': 'Bearer ' + dropbox_token,
-               'Dropbox-API-Arg': json.dumps(DROPBOX_UPLOAD_ARGS),
-               'Content-Type': 'application/octet-stream'}
-
-    # Upload the file
-    r = requests.post(DROPBOX_UPLOAD_URL, data=open(source_file, 'rb'), headers=headers)
-    
-    print("upload response", r)
-    if r.status_code != requests.codes.ok:
-        print("Failed: upload file to Dropbox: {errcode}".format(errcode=r.status_code))
-        return None
-    
-    
-    headers = {'Authorization': 'Bearer ' + dropbox_token,
-               'Content-Type': 'application/json'}
-
-    # Share and return downloadable url
-    r = requests.post(DROPBOX_SHARE_URL, data=json.dumps(DROPBOX_SHARE_DATA), headers=headers)
-    
-    if r.status_code != requests.codes.ok:
-        print("Failed: get share link from Dropbox {errcode}".format(errcode=r.status_code))
-        return None
-    '''
+    DROPBOX_DELETE_DATA['path'] = dropbox_pat
     
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
-    dbx.files_upload(data.read(), '/app.apk')
+    dbx.files_upload(data.read(), '/Find-and-trade.apk')
 
 
 def get_app(release_dir):
