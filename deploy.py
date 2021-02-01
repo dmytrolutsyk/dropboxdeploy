@@ -82,7 +82,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
-    dbx.files_upload(data.read(), 'app.apk')
+    dbx.files_upload(data.read(), '/Applications/Ci-Cd ESGI/app.apk')
 
 
 def get_app(release_dir):
