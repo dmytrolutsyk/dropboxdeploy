@@ -47,7 +47,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
     DROPBOX_UPLOAD_ARGS['path'] = dropbox_path
     DROPBOX_SHARE_DATA['path'] = dropbox_path
-    DROPBOX_DELETE_DATA['path'] = dropbox_pat
+    DROPBOX_DELETE_DATA['path'] = dropbox_path
     
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
