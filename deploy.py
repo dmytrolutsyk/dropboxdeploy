@@ -12,7 +12,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
     print(file_name)
-    dbx.files_upload(data.read(), '/'+ str(file_name).format(file_name=target_file_name))
+    dbx.files_upload(data.read(), dropbox_path)
 
 
 def get_app(release_dir):
