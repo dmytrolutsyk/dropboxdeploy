@@ -7,33 +7,6 @@ import json
 import re
 import dropbox
 
-DROPBOX_ERROR_CODE = 1
-ZAPIER_ERROR_CODE = 2
-TEMPLATE_ERROR_CODE = 3
-CHANGES_ERROR_CODE = 4
-OUTPUT_FILE_PARSING_ERROR = 5
-
-DROPBOX_UPLOAD_ARGS = {
-    'path': None,
-    'mode': 'overwrite',
-    'autorename': True,
-    'strict_conflict': True
-}
-DROPBOX_UPLOAD_URL = 'https://content.dropboxapi.com/2/files/upload'
-
-DROPBOX_SHARE_DATA = {
-    'path': None,
-    'settings': {
-        'requested_visibility': 'public'
-    }
-}
-DROPBOX_SHARE_URL = 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings'
-
-DROPBOX_DELETE_DATA = {
-    'path' : None
-}
-DROPBOX_DELETE_URL = 'https://api.dropboxapi.com/2/files/delete_v2'
-
 def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder):
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
     dbx = dropbox.Dropbox(dropbox_token)
@@ -46,7 +19,7 @@ def get_app(release_dir):
 
     with(open(output_path)) as app_output:
         json_data = json.load(app_output)
-    
+
     print(json_data)
     apk_details_key = ''
     if 'elements' in json_data:
