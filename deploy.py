@@ -11,8 +11,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
-    print(file_name)
-    dbx.files_upload(data.read(), dropbox_path)
+    dbx.files_upload(data.read(), target_file_name)
 
 
 def get_app(release_dir):
