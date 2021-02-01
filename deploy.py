@@ -81,7 +81,7 @@ def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder)
     '''
     print("oN est la")
     file_from = 'index.jpeg'  #local file path
-    file_to = '/Applications/app.apk'      # dropbox path
+    file_to = '/Applications/Ci-Cd ESGI/app.apk'      # dropbox path
     dbx = dropbox.Dropbox(dropbox_token)
     data=open(source_file, 'rb')
     dbx.files_upload(data.read(), file_to)
