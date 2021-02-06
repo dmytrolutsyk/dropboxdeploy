@@ -6,6 +6,7 @@ import requests
 import json
 import re
 import dropbox
+from dropbox.files import WriteMode
 
 def dropbox_upload(target_file_name, source_file, dropbox_token, dropbox_folder):
     dropbox_path = '/{folder}/{file_name}'.format(folder=dropbox_folder, file_name=target_file_name)
